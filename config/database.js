@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const initDataBase = (connectionString) => {
+const initDatabase = (connectionString) => {
     return mongoose.connect(connectionString);
 };
 
-module.exports = initDataBase;
+module.exports = initDatabase;

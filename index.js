@@ -7,15 +7,15 @@ const initDatabase = require('./config/database');
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
-require('./config/handlebars');
-
+require('./config/handlebars')(app);
 app.use(express.static(path.resolve(__dirname, './static')));
 require('dotenv/config');
 app.use(routes);
 
 initDatabase(process.env.DB_CONNECTION)
-    .then(() => {
-        app.listen(config.PORT, () => console.log(`App running on port ${config.PORT}`));
+    .then( () => {
+        // console.log(config.port);
+        app.listen(config.port, () => console.log(`App running on port ${config.port}`));
         console.log('Connected to DB...');
     })
     .catch(error => {
