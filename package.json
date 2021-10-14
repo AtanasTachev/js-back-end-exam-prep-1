@@ -5,20 +5,30 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon js-back-end-exam-prep-1/index.js"
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtanasTachev/js-back-end-exam-prep-1.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtanasTachev/js-back-end-exam-prep-1/issues"
+  },
+  "homepage": "https://github.com/AtanasTachev/js-back-end-exam-prep-1#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
-    "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
+    "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.10",
-    "nodemon": "^2.0.13",
     "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
