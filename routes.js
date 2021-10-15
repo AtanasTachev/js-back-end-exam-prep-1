@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(homeController);
 router.use('/rent', apartmentController);
-router.use('/auth', authController);
+router.use(authController);
 
 router.use('*', (req, res) => {
     res.status(404)

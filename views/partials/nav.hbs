@@ -3,12 +3,15 @@
     <ul>
         <!-- Guest users and Logged users -->
         <li><a href="/">Housing for rent</a></li>
-        <!-- Guest users -->
-        <li><a href="/auth/login">Login</a></li>
-        <li><a href="/auth/register">Register</a></li>
+        {{#if user}}
         <!-- Logged users -->
         <li><a href="/rent/create">Create offer</a></li>
         <li><a href="/rent/search">Search</a></li>
         <li><a href="/logout">Logout</a></li>
+        {{else}}
+        <!-- Guest users -->
+        <li><a href="/login">Login</a></li>
+        <li><a href="/register">Register</a></li>
+        {{/if}}
     </ul>
 </nav>

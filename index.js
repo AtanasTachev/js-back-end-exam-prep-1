@@ -1,12 +1,18 @@
 const express = require('express');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+
 const routes = require('./routes');
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[env];
 const initDatabase = require('./config/database');
+const { auth } = require('./middlewares/authMiddleware');
 
 const app = express();
+
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
+app.use(auth);
 require('./config/handlebars')(app);
 // app.use(express.static(path.resolve(__dirname, './static')));
 require('dotenv/config');
