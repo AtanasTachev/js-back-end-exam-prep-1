@@ -1,12 +1,12 @@
 const express = require('express');
 
 const homeController = require('./controllers/homeController');
-const apartmentController = require('./controllers/apartmentController');
+const realEstateController = require('./controllers/realEstateController');
 const authController = require('./controllers/authController');
 const router = express.Router();
 
 router.use(homeController);
-router.use('/rent', apartmentController);
+router.use('/rent', realEstateController);
 router.use(authController);
 
 router.use('*', (req, res) => {
