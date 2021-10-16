@@ -21,7 +21,7 @@ app.use(routes);
 initDatabase(process.env.DB_CONNECTION)
     .then( () => {
         // console.log(config.port);
-        app.listen(config.port, () => console.log(`App running on port ${config.port}`));
+        app.listen(config.port, () => console.log(`App running on port http://localhost:${config.port}`));
         console.log('Connected to DB...');
     })
     .catch(error => {

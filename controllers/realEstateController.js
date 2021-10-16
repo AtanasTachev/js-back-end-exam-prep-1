@@ -1,5 +1,6 @@
 const express = require('express');
 const realEstateService = require('../services/realEstateService');
+const { isAuth } = require('../middlewares/authMiddleware')
 
 const router = express.Router();
 
@@ -15,11 +16,27 @@ const getHousingView = async (req, res) => {
 const getDetailsView = async(req, res) => {
     let realEstate = await realEstateService.getOne(req.params.realId);
 
-    let isOwn = real.creator == req.user._id;
-    res.render('real/details', { ...realEstate, isOwn});
+    let isOwn = realEstate.creator == req.user._id;
+    res.render('rent/details', { ...realEstate, isOwn});
+}
+
+const createRealEstate = async (req, res) => {
+    let {name, type, year, city, homeImage, propertyDescription, piecesAvailable} = req.body;
+    console.log(req.body);
+    try{
+        await realEstateService.create(name, type, year, city, homeImage, propertyDescription, piecesAvailable, [], req.body._id);
+
+        res.redirect('/');
+    } catch(err) {
+        let errors = Object.keys(err.errors).map(x => err.errors[x].message);
+        res.locals.errors = errors;
+
+        res.redirect('rent/create');
+    }
 }
 
 router.get('/create', getCreateView);
+router.post('/create', isAuth, createRealEstate);
 router.get('/housing', getHousingView);
 router.get('/:realId/details', getDetailsView);
 
