@@ -24,7 +24,9 @@ const createRealEstate = async (req, res) => {
     let {name, type, year, city, homeImage, propertyDescription, piecesAvailable} = req.body;
     console.log(req.body);
     try{
-        await realEstateService.create(name, type, year, city, homeImage, propertyDescription, piecesAvailable, [], req.body._id);
+        let rentedBy = [];
+        let data = {name, type, year, city, homeImage, propertyDescription, piecesAvailable}
+        await realEstateService.create(...data, rentedBy, req.user._id);
 
         res.redirect('/');
     } catch(err) {
