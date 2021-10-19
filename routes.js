@@ -1,9 +1,8 @@
-const express = require('express');
+const router = require('express').Router();
 
 const homeController = require('./controllers/homeController');
 const realEstateController = require('./controllers/realEstateController');
 const authController = require('./controllers/authController');
-const router = express.Router();
 
 router.use(homeController);
 router.use('/rent', realEstateController);

@@ -1,12 +1,15 @@
 const express = require('express');
 
+const realEstatesService = require('../services/realEstateService');
+
 const router = express.Router();
 
-const home = (req, res) => {
-    res.render('home');
-}
+router.get('/', async(req, res) => {
 
-router.get('/', home);
+    let realEstates = await realEstatesService.getAll();
+    res.render('home', { realEstates });
+
+});
 
 
 module.exports = router;

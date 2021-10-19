@@ -9,7 +9,7 @@ const initHandlebars = (app) => {
     }));
     app.set('view engine', 'hbs');
     app.use(express.static('./static'));
-    app.use(express.json());
+    // app.use(express.json());
 };
 
 module.exports = initHandlebars;

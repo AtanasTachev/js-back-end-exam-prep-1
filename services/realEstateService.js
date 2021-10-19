@@ -4,16 +4,15 @@ const getAll = () => RealEstate.find({}).lean();
 
 const getOne = (id) => RealEstate.findById(id).lean();
 
-const create = (name, type, year, city, homeImage, propertyDescription, piecesAvailable, [], userId) => {
+const create = (name, type, year, city, homeImage, description, piecesAvailable, userId) => {
     let realEstate = new RealEstate({
         name,
         type,
         year,
         city,
         homeImage,
-        propertyDescription,
+        description,
         piecesAvailable,
-        rentedBy: [],
         owner: userId
     });
 

@@ -12,8 +12,11 @@ const register = async(req, res) => {
     try {
         let { fullname, username, password, repass } = req.body;
         // console.log(req.body);
-        await authService.register(fullname, username, password, repass);
-        res.redirect('/');
+        if(password === repass) {
+            await authService.register(fullname, username, password, repass);
+            res.redirect('/');
+        }
+
     } catch (err) {
         res.status(400).render('auth/register', {err: err.message})
     }

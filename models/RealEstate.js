@@ -22,7 +22,7 @@ const realEstateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    propertyDescription: {
+    description: {
         type:String,
         required: true
     },

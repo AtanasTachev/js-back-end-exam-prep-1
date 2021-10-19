@@ -12,7 +12,7 @@ exports.auth = function( req, res, next ) {
         if (err) {
             return res.status(401).redirect('/');
         }
-        res.user = decodedToken;
+        req.user = decodedToken;
         res.locals.user = decodedToken;
         next();
     });
