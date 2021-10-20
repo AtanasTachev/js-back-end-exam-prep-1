@@ -1,6 +1,7 @@
 const express = require('express');
 const realEstateService = require('../services/realEstateService');
-const { isAuth } = require('../middlewares/authMiddleware')
+const { isAuth } = require('../middlewares/authMiddleware');
+const { isOwnReal } = require('../middlewares/realEstateMiddleware');
 
 const router = express.Router();
 
@@ -32,8 +33,8 @@ router.get('/housing', async (req, res) => {
 router.get('/:realId/details', async(req, res) => {
     let realEstate = await realEstateService.getOne(req.params.realId);
 
-    let isOwner = realEstate.creator == req.user._id;
-    res.render('rent/details', { ...realEstate, isOwner});
+    // let isOwner = realEstate.owner == req.user._id;
+    res.render('rent/details', { ...realEstate, isOwnReal, isAuth});
 });
 
 module.exports = router;

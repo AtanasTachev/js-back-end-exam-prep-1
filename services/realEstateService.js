@@ -19,6 +19,8 @@ const create = (name, type, year, city, homeImage, description, piecesAvailable,
     return realEstate.save();
 }
 
+// const is
+
 const realEstateService = {
     getAll,
     getOne,

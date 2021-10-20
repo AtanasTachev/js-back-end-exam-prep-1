@@ -36,7 +36,9 @@
                     <p class="alRentHome">You have already rent this home</p>
                     {{/if}}
                     <!-- logged in user with no available pieces-->
+                    {{#if placesAvailable}}
                     <p class="no-housing">No Housing Available!</p>
+                    {{/if}}
                 </div>
             </div>
         </div>
