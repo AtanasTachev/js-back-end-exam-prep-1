@@ -4,7 +4,7 @@ const authService = require('../services/authService');
 
 const router = express.Router();
 
-corouter.get('/register', (req, res) => {
+router.get('/register', (req, res) => {
     res.render('auth/register');
 });
 

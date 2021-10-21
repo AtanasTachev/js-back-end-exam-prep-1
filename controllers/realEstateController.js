@@ -33,8 +33,13 @@ router.get('/housing', async (req, res) => {
 router.get('/:realId/details', async(req, res) => {
     let realEstate = await realEstateService.getOne(req.params.realId);
 
-    // let isOwner = realEstate.owner == req.user._id;
-    res.render('rent/details', { ...realEstate, isOwnReal});
+    let isOwner = realEstate.owner == req.user._id;
+    res.render('rent/details', { ...realEstate, isOwner});
 });
+
+router.get('/:realId/edit', async (req, res) => {
+    let realestate = await realEstateService.getOne(req.params.realId);
+    res.render('rent/edit', {...realestate});
+})
 
 module.exports = router;

@@ -19,12 +19,13 @@ const create = (name, type, year, city, homeImage, description, piecesAvailable,
     return realEstate.save();
 }
 
-// const is
+const getTopRealEstates = () => RealEstate.find().sort({createdAt: -1}).limit(3).lean();
 
 const realEstateService = {
     getAll,
     getOne,
-    create
+    create,
+    getTopRealEstates
 };
 
 module.exports = realEstateService;

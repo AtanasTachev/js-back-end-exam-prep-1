@@ -38,7 +38,9 @@ const realEstateSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }
-});
+},
+ { timestamps: true } );
+
 
 const RealEstate = mongoose.model('RealEstate', realEstateSchema);
 

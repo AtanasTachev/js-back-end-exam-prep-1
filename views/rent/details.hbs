@@ -28,15 +28,17 @@
 
                     {{#if isOwner}}
                     <!-- Only for registered user and creator of the housing offer-->
-                    <a href="#" class="edit">Edit</a>
-                    <a href="#" class="remove">Delete</a>
-                    {{else if isAuth}}
+                    <a href="/rent/{{_id}}/edit" class="edit">Edit</a>
+                    <a href="/rent/{{_id}}/delete" class="remove">Delete</a>
+                    {{else if user}}
                     <!-- logged in user with available pieces-->
-                    <a href="#" class="rentHome">Rent a home, available 2 housing</a>
+                    <a href="/rent/rent-real" class="rentHome">Rent a home, available {{piecesAvailable}} housing</a>
+                    {{#if haveRented}}
                     <p class="alRentHome">You have already rent this home</p>
                     {{/if}}
+                    {{/if}}
                     <!-- logged in user with no available pieces-->
-                    {{#if placesAvailable}}
+                    {{#if noVacancy}}
                     <p class="no-housing">No Housing Available!</p>
                     {{/if}}
                 </div>

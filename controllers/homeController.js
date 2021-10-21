@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async(req, res) => {
 
-    let realEstates = await realEstatesService.getAll();
+    let realEstates = await realEstatesService.getTopRealEstates();
     res.render('home', { realEstates });
 
 });
