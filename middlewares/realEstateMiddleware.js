@@ -1,4 +1,4 @@
-const realEstateController = require('../services/realEstateService');
+const realEstateService = require('../services/realEstateService');
 
 exports.isOwnReal = (req, res, next) => {
     let real = realEstateService.getOne(req.params.realId);
@@ -7,6 +7,6 @@ exports.isOwnReal = (req, res, next) => {
         req.real = real;
         next();
     } else {
-        next('Uou are not allowed to edit or delete this real-estate');
+        next('You are not allowed to edit or delete this real-estate');
     }
 }

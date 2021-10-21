@@ -34,7 +34,7 @@ router.get('/:realId/details', async(req, res) => {
     let realEstate = await realEstateService.getOne(req.params.realId);
 
     // let isOwner = realEstate.owner == req.user._id;
-    res.render('rent/details', { ...realEstate, isOwnReal, isAuth});
+    res.render('rent/details', { ...realEstate, isOwnReal});
 });
 
 module.exports = router;

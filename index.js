@@ -6,13 +6,16 @@ const routes = require('./routes');
 const env = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[env];
 const initDatabase = require('./config/database');
-const { auth } = require('./middlewares/authMiddleware');
+const { auth, isAuth } = require('./middlewares/authMiddleware');
+// const { isOwnReal } = require('./middlewares/realEstateMiddleware');
 
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(auth);
+// app.use(isAuth);
+// app.use(isOwnReal);
 require('./config/handlebars')(app);
 // app.use(express.static(path.resolve(__dirname, './static')));
 require('dotenv/config');
