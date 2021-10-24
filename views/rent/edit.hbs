@@ -8,7 +8,7 @@
                 Edit Home
             </h2>
 
-            <form class="form" action="/rent/edit" method="POST">
+            <form class="form" action="/rent/{{_id}}/edit" method="POST">
                 <div class="input">
                     <input type="text" class="input-field" id="home-name" name="name" value="{{name}}" />
                     <label class="home-name">Name:</label>
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="input">
-                    <input type="text" class="input-field" id="homeImage" name="" value="{{homeImage}}" />
+                    <input type="text" class="input-field" id="homeImage" name="homeImage" value="{{homeImage}}" />
                     <label class="homeImage">Home Image:</label>
                 </div>
 

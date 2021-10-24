@@ -30,10 +30,12 @@ const realEstateSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    rentedBy: {
-        type: [mongoose.Types.ObjectId],
+    tenants: [
+        {
+        type: mongoose.Types.ObjectId,
         ref: 'User'
-    },
+    }
+    ],
     owner: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
@@ -41,7 +43,12 @@ const realEstateSchema = new mongoose.Schema({
 },
  { timestamps: true } );
 
+realEstateSchema.method('getTenants', function(){
+    return this.tenants.map(x => x.fullname).join(', ');
+});
+
 
 const RealEstate = mongoose.model('RealEstate', realEstateSchema);
+
 
 module.exports = RealEstate;

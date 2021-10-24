@@ -1,9 +1,7 @@
-const express = require('express');
+const router = require('express').Router();
 const realEstateService = require('../services/realEstateService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwnReal } = require('../middlewares/realEstateMiddleware');
-
-const router = express.Router();
 
 router.get('/create', (req, res) => {
     res.render('rent/create');
@@ -33,13 +31,50 @@ router.get('/housing', async (req, res) => {
 router.get('/:realId/details', async(req, res) => {
     let realEstate = await realEstateService.getOne(req.params.realId);
 
-    let isOwner = realEstate.owner == req.user._id;
-    res.render('rent/details', { ...realEstate, isOwner});
+    let realEstateData = await realEstate.toObject();
+
+    let isOwner = realEstateData.owner == req.user?._id;  
+
+    let tenants = realEstate.getTenants();
+    
+    let noVacancy = realEstate.piecesAvailable <= 0;
+    
+    let isRented = realEstate.tenants.some(x => x?._id == req.user?._id);
+
+    res.render('rent/details', { ...realEstateData, isOwner, tenants, noVacancy, isRented });
 });
 
 router.get('/:realId/edit', async (req, res) => {
-    let realestate = await realEstateService.getOne(req.params.realId);
-    res.render('rent/edit', {...realestate});
-})
+    let realEstate = await realEstateService.getOne(req.params.realId);
+    let realData = await realEstate.toObject();
+    res.render('rent/edit', {...realData});
+});
+
+router.post('/:realId/edit', async(req, res) => {
+    let realData = req.body;
+    let realId = req.params.realId;
+    await realEstateService.updateOne(realId, realData);
+    res.redirect(`/rent/${req.params.realId}/details`);
+});
+
+router.get('/:realId/delete', async (req, res) => {
+    await realEstateService.deleteOne(req.params.realId);
+    res.redirect('/');
+});
+
+router.get('/:realId/rent', async (req, res) => {
+    let realEstate = await realEstateService.getOne(req.params.realId);
+    // console.log(realEstate);
+    // console.log(realEstate.tenants);
+
+    realEstate.tenants.push(req.user._id);
+
+    await realEstate.save();
+    // console.log(req.params);
+
+    res.redirect(`/rent/${req.params.realId}/details`);
+});
+
+
 
 module.exports = router;

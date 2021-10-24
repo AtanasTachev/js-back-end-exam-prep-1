@@ -13,9 +13,9 @@
                         <h4>City: {{city}} </h4>
                         <p>Description: {{description}} </p>
 
-                        {{#if tennants}}
+                        {{#if tenants}}
                         <!-- if there are already tenants of the housing, separate their names with a comma and a space ", "  -->
-                        <p>People rented this housing: {{tennants}} </p>
+                        <p>People rented this housing: {{tenants}} </p>
                         {{else}}
                         <!-- If not display: -->
                         <p>People rented this housing: There are no tenants yet.</p>
@@ -31,15 +31,16 @@
                     <a href="/rent/{{_id}}/edit" class="edit">Edit</a>
                     <a href="/rent/{{_id}}/delete" class="remove">Delete</a>
                     {{else if user}}
-                    <!-- logged in user with available pieces-->
-                    <a href="/rent/rent-real" class="rentHome">Rent a home, available {{piecesAvailable}} housing</a>
-                    {{#if haveRented}}
-                    <p class="alRentHome">You have already rent this home</p>
-                    {{/if}}
-                    {{/if}}
-                    <!-- logged in user with no available pieces-->
-                    {{#if noVacancy}}
-                    <p class="no-housing">No Housing Available!</p>
+
+                        {{#if isRented}}
+                        <p class="alRentHome">You have already rent this home</p>
+                        {{else if noVacancy}}
+                        <!-- logged in user with no available pieces-->
+                        <p class="no-housing">No Housing Available!</p>
+                        {{else}}
+                        <!-- logged in user with available pieces-->
+                        <a href="/rent/{{_id}}/rent" class="rentHome">Rent a home, available {{piecesAvailable}} housing</a>
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>
