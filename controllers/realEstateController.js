@@ -15,11 +15,11 @@ router.post('/create', isAuth, async (req, res) => {
         await realEstateService.create(name, type, year, city, homeImage, description, piecesAvailable, req.user._id);
         
         res.redirect('/');
-    } catch(err) {
+    } catch(error) {
         // let errors = Object.keys(err.errors).map(x => err.errors[x].message);
         // res.locals.errors = errors;
-        console.log(err.message);
-        res.redirect('create');
+        // console.log(err.message);
+        res.render('rent/create', {error: error.message});
     }
 });
 
@@ -51,10 +51,14 @@ router.get('/:realId/edit', isOwner, async (req, res) => {
 });
 
 router.post('/:realId/edit', isOwner, async(req, res) => {
-    let realData = req.body;
-    let realId = req.params.realId;
-    await realEstateService.updateOne(realId, realData);
-    res.redirect(`/rent/${req.params.realId}/details`);
+    try{
+        let realData = req.body;
+        let realId = req.params.realId;
+        await realEstateService.updateOne(realId, realData);
+        res.redirect(`/rent/${req.params.realId}/details`);
+    } catch (error) {
+        res.render('rent/edit', {error: error.message});
+    }
 });
 
 router.get('/:realId/delete', isOwner, async (req, res) => {
