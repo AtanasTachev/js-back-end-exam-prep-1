@@ -25,13 +25,25 @@ const deleteOne = (id) => RealEstate.findByIdAndDelete(id).lean();
 
 const updateOne = (id, real) => RealEstate.findByIdAndUpdate(id, real).lean();
 
+const addTenant = async (realId, tenantId) => {
+
+    return await RealEstate.findOneAndUpdate({_id: realId}, { $push: {tenants: tenantId}, $inc:{ piecesAvailable: -1}});
+
+    // let realEstate = await realEstateService.getOne(req.params.realId);
+    
+    // realEstate.tenants.push(req.user._id);
+    
+    // await realEstate.save();
+}
+
 const realEstateService = {
     getAll,
     getOne,
     create,
     getTopRealEstates,
     deleteOne,
-    updateOne
+    updateOne,
+    addTenant
 };
 
 module.exports = realEstateService;

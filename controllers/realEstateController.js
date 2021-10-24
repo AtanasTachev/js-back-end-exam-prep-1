@@ -39,7 +39,7 @@ router.get('/:realId/details', async(req, res) => {
     
     let noVacancy = realEstate.piecesAvailable <= 0;
     
-    let isRented = realEstate.tenants.some(x => x?._id == req.user?._id);
+    let isRented = realEstate.tenants.some(x => x._id == req.user?._id);
 
     res.render('rent/details', { ...realEstateData, isOwner, tenants, noVacancy, isRented });
 });
@@ -63,14 +63,8 @@ router.get('/:realId/delete', async (req, res) => {
 });
 
 router.get('/:realId/rent', async (req, res) => {
-    let realEstate = await realEstateService.getOne(req.params.realId);
-    // console.log(realEstate);
-    // console.log(realEstate.tenants);
 
-    realEstate.tenants.push(req.user._id);
-
-    await realEstate.save();
-    // console.log(req.params);
+    await realEstateService.addTenant(req.params.realId, req.user._id);
 
     res.redirect(`/rent/${req.params.realId}/details`);
 });

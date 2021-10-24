@@ -11,7 +11,6 @@ router.get('/register', (req, res) => {
 router.post('/register',  async(req, res) => {
     try {
         let { fullname, username, password, repass } = req.body;
-        // console.log(req.body);
         if(password === repass) {
             await authService.register(fullname, username, password, repass);
 
