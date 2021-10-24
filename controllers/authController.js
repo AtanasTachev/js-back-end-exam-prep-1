@@ -22,8 +22,8 @@ router.post('/register', isGuest,  async(req, res) => {
             res.redirect('/');
         }
 
-    } catch (err) {
-        res.status(400).render('auth/register', {err: err.message})
+    } catch (error) {
+        res.render('auth/register', {error: error.message})
     }
 
 });
@@ -33,20 +33,25 @@ router.get('/login', isGuest,  (req, res) => {
 });
 
 router.post('/login', isGuest, async (req, res) => {
+
     const { username, password } = req.body;
- 
-        let user = await authService.login(username, password);
-    
-        if(!user) {
-            return res.redirect('/404');
-        }
-        let token = await authService.createToken(user);
-    
-        res.cookie(TOKEN_COOKIE, token, {
-            httpOnly: true
-        });
-    
-        res.redirect('/');
+
+    try {
+            let user = await authService.login(username, password);
+        
+            // if(!user) {
+            //     return res.redirect('/404');
+            // }
+            let token = await authService.createToken(user);
+        
+            res.cookie(TOKEN_COOKIE, token, {
+                httpOnly: true
+            });
+        
+            res.redirect('/');
+    } catch (error) {
+        res.render('auth/login', {error: `Invalid username or password ${error.message}`});
+    }
 });
 
 router.get('/logout', isAuth, (req, res) => {

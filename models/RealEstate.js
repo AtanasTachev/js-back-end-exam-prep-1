@@ -49,7 +49,7 @@ const realEstateSchema = new mongoose.Schema({
         ref: 'User'
     }
 },
- { timestamps: true } );
+ { timestamps: true });
 
 realEstateSchema.method('getTenants', function(){
     return this.tenants.map(x => x.fullname).join(', ');

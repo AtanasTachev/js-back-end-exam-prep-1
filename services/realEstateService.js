@@ -27,7 +27,12 @@ const updateOne = (id, real) => RealEstate.findByIdAndUpdate(id, real).lean();
 
 const addTenant = async (realId, tenantId) => {
 
-    return await RealEstate.findOneAndUpdate({_id: realId}, { $push: {tenants: tenantId}, $inc:{ piecesAvailable: -1}});
+    return await RealEstate.findOneAndUpdate({_id: realId}, 
+        { 
+            $push: {tenants: tenantId}, 
+            $inc:{ piecesAvailable: -1}
+        },
+        { runValidators: true });
 
     // let realEstate = await realEstateService.getOne(req.params.realId);
     
