@@ -5,7 +5,8 @@ const SALT = 10;
 const userSchema = new mongoose.Schema ({
     fullname: {
         type: String,
-        required: true
+        required: true,
+        validate: [/[A-Za-z]+ [A-Za-z]+/, 'Fullname should consist of first and last name starting with capital a letter']
     },
     username: {
         type: String,
