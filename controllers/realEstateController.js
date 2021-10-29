@@ -74,6 +74,7 @@ router.get('/:realId/rent', isOwner, async (req, res) => {
     res.redirect(`/rent/${req.params.realId}/details`);
 });
 
+
 async function isOwner (req, res, next) {
     let realEstate = await realEstateService.getOne(req.params.realId);
     if(realEstate.owner == req.params.realId) {
@@ -91,5 +92,7 @@ async function isNotOwner (req, res, next) {
         res.redirect(`rent/${req.params,realId}/details`);
     }
 }
+
+
 
 module.exports = router;

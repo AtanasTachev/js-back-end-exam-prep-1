@@ -27,19 +27,22 @@ const updateOne = (id, real) => RealEstate.findByIdAndUpdate(id, real).lean();
 
 const addTenant = async (realId, tenantId) => {
 
+    
     return await RealEstate.findOneAndUpdate({_id: realId}, 
         { 
             $push: {tenants: tenantId}, 
             $inc:{ piecesAvailable: -1}
         },
         { runValidators: true });
-
-    // let realEstate = await realEstateService.getOne(req.params.realId);
+        
+        // let realEstate = await realEstateService.getOne(req.params.realId);
+        
+        // realEstate.tenants.push(req.user._id);
+        
+        // await realEstate.save();
+    };
     
-    // realEstate.tenants.push(req.user._id);
-    
-    // await realEstate.save();
-}
+const search = (text) => RealEstate.find( { type: {$regex: text, $options: 'i'}} ).lean();
 
 const realEstateService = {
     getAll,
@@ -48,7 +51,8 @@ const realEstateService = {
     getTopRealEstates,
     deleteOne,
     updateOne,
-    addTenant
+    addTenant,
+    search
 };
 
 module.exports = realEstateService;
